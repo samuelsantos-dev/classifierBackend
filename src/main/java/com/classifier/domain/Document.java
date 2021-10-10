@@ -11,11 +11,11 @@ import javax.persistence.Id;
 public class Document implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String name;
 	private Integer type;
 	private String url;
@@ -25,41 +25,60 @@ public class Document implements Serializable {
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public Integer getType() {
 		return type;
 	}
+
 	public void setType(Integer type) {
 		this.type = type;
 	}
+
 	public String getUrl() {
 		return url;
 	}
+
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
 	public String getExtension() {
 		return extension;
 	}
+
 	public void setExtension(String extension) {
 		this.extension = extension;
 	}
+
 	public long getSize_bytes() {
 		return size_bytes;
 	}
+
 	public void setSize_bytes(long size_bytes) {
 		this.size_bytes = size_bytes;
 	}
-	
-	
-	
 
+	public Document(Integer id, String name, Integer type, String url, String extension, long size_bytes) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.type = type;
+		this.url = url;
+		this.extension = extension;
+		this.size_bytes = size_bytes;
+	}
+
+	
 }

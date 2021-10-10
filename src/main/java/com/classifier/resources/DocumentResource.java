@@ -1,7 +1,6 @@
 package com.classifier.resources;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,9 +14,8 @@ import com.classifier.domain.Document;
 @RequestMapping(value = "/documents")
 public class DocumentResource {
 
-	@RequestMapping(value = "/documento/{id}", method = RequestMethod.POST)
-	public ResponseEntity<Document> uploadDocument(@PathVariable Integer id,
-			@RequestParam("type") Integer type,
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Document> uploadDocument(@RequestParam("type") Integer type,
 			@RequestPart(name = "description", required = false) String descricao,
 			@RequestPart("file") MultipartFile documento) {
 		return ResponseEntity.ok(null);
