@@ -76,7 +76,7 @@ public class DocumentService {
 		URI link = service.uploadFile(document, USER_FOLDER_NAME, fileName);
 
 		Document documentUser = new Document(null, fileName, type.getCod(), link.toString(), extension,
-				document.getSize());
+				document.getSize(), null);
 		return documentUser;
 	}
 

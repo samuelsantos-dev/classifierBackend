@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Document implements Serializable {
@@ -21,6 +23,10 @@ public class Document implements Serializable {
 	private String url;
 	private String extension;
 	private long size_bytes;
+
+	@ManyToOne
+	@JoinColumn(name = "user_system_id")
+	private User user;
 
 	public Integer getId() {
 		return id;
@@ -70,7 +76,15 @@ public class Document implements Serializable {
 		this.size_bytes = size_bytes;
 	}
 
-	public Document(Integer id, String name, Integer type, String url, String extension, long size_bytes) {
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Document(Integer id, String name, Integer type, String url, String extension, long size_bytes, User user) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -78,7 +92,7 @@ public class Document implements Serializable {
 		this.url = url;
 		this.extension = extension;
 		this.size_bytes = size_bytes;
+		this.user = user;
 	}
 
-	
 }

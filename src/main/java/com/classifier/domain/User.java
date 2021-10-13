@@ -1,16 +1,24 @@
 package com.classifier.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "_user")
+@Entity(name = "user_system")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -28,6 +36,11 @@ public class User implements Serializable {
 
 	@JsonIgnore
 	private String password;
+	
+	@JsonIgnore
+	@LazyCollection(LazyCollectionOption.TRUE)
+	@OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST}, mappedBy="user_system", fetch = FetchType.LAZY)
+	private List<Document> documents = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -83,6 +96,14 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Document> getDocuments() {
+		return documents;
+	}
+
+	public void setDocuments(List<Document> documents) {
+		this.documents = documents;
 	}
 
 	public User() {
