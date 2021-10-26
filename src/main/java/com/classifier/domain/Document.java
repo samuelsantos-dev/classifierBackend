@@ -25,7 +25,7 @@ public class Document implements Serializable {
 	private long size_bytes;
 
 	@ManyToOne
-	@JoinColumn(name = "user_system_id")
+	@JoinColumn(name = "user_id")
 	private User user;
 
 	public Integer getId() {

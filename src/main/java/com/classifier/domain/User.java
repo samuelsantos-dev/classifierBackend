@@ -18,8 +18,9 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "user_system")
+@Entity(name = "user_classifier")
 public class User implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -39,7 +40,7 @@ public class User implements Serializable {
 	
 	@JsonIgnore
 	@LazyCollection(LazyCollectionOption.TRUE)
-	@OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST}, mappedBy="user_system", fetch = FetchType.LAZY)
+	@OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST}, mappedBy="user", fetch = FetchType.LAZY)
 	private List<Document> documents = new ArrayList<>();
 
 	public Integer getId() {

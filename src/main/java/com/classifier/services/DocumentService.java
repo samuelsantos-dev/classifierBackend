@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,19 +24,14 @@ public class DocumentService {
 	@Autowired
 	private S3Service service;
 
-
-	@Value("${img.size}")
-	private Integer size;
-
 	@Autowired
 	private DocumentRepository rep;
 
 	private static final String USER_FOLDER_NAME = "user";
 	private static final String USER_PREFIX = "user";
-
 	private static final String[] validExtensions = { "pdf", "jpg", "png", "jpeg" };
 
-	public List<String> findFileNamesByFuncionario(User user) {
+	public List<String> findFileNames(User user) {
 		String prefix = USER_FOLDER_NAME + "/" + USER_PREFIX + "-" + user.getCpf().replaceAll("[^\\d]", "");
 		return service.findWithPrefix(prefix);
 	}
@@ -60,24 +54,13 @@ public class DocumentService {
 
 		String extension = document.getOriginalFilename().substring(originalFilename.lastIndexOf("."));
 
-		List<String> fileNames = findFileNamesByFuncionario(user);
+		String name = filePrefix + "-" + extension;
+		URI link = service.uploadFile(document, USER_FOLDER_NAME, name);
 
-		Integer fileNumber = 0;
+		Document documentUser = new Document(null, name, type.getCod(), link.toString(), extension, document.getSize(),
+				null);
 
-		for (String f : fileNames) {
-			String numberAndExtension = f.substring(f.lastIndexOf('-'));
-			Integer number = Integer.parseInt(numberAndExtension.replaceAll("[^0-9]", ""));
-
-			if (number > fileNumber)
-				fileNumber = number;
-		}
-
-		String fileName = filePrefix + "-" + (fileNumber + 1) + extension;
-		URI link = service.uploadFile(document, USER_FOLDER_NAME, fileName);
-
-		Document documentUser = new Document(null, fileName, type.getCod(), link.toString(), extension,
-				document.getSize(), null);
-		return documentUser;
+		return rep.save(documentUser);
 	}
 
 }
