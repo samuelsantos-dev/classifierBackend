@@ -28,7 +28,7 @@ public class UserService {
 	}
 
 	public User fromDTO(UserNewDTO dto) {
-		User user = new User(null, dto.getName(), 1, dto.getEmail(), dto.getEmail(), dto.getPassword());
+		User user = new User(null, dto.getName(), dto.getCpf(),1, dto.getEmail(), dto.getEmail(), dto.getPassword());
 		return user;
 	}
 

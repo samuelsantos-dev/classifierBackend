@@ -112,10 +112,11 @@ public class User implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(Integer id, String name, Integer type, String email, String username, String password) {
+	public User(Integer id, String name, String cpf, Integer type, String email, String username, String password) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.cpf = cpf;
 		this.type = type;
 		this.email = email;
 		this.username = username;

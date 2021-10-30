@@ -20,7 +20,7 @@ public class UserResource {
 
 	@Autowired
 	private UserService service;
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public ResponseEntity<User> find(@PathVariable Integer id) {
 		User user = service.find(id);
