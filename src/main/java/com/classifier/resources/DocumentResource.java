@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,11 +27,10 @@ public class DocumentResource {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public ResponseEntity<Document> uploadDocument(@PathVariable("id") Integer id,
-			@RequestParam("type") Integer type,
 			@RequestPart(name = "description", required = false) String descricao,
 			@RequestPart("file") MultipartFile document) {
 		User user = userService.find(id);
-		service.uploadDocument(user, document, TypeDocument.CPF, "description");
-		return ResponseEntity.ok(null);
+		Document obj = service.uploadDocument(user, document, TypeDocument.CPF, "description");
+		return ResponseEntity.ok(obj);
 	}
 }

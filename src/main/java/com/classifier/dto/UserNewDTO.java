@@ -14,7 +14,7 @@ public class UserNewDTO implements Serializable {
 	@NotNull(message = "Prenchimento obrigatório")
 	private String name;
 
-	@CPF
+	@CPF(message = "CPF inválido")
 	private String cpf;
 
 	@Email

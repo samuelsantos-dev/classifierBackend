@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,7 +31,7 @@ public class User implements Serializable {
 	private Integer type;
 	private String email;
 
-	@Column(unique = true)
+//	@Column(unique = true)
 	private String username;
 
 	@JsonIgnore
