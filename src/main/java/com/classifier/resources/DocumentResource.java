@@ -30,7 +30,7 @@ public class DocumentResource {
 			@RequestPart(name = "description", required = false) String descricao,
 			@RequestPart("file") MultipartFile document) {
 		User user = userService.find(id);
-		Document obj = service.uploadDocument(user, document, TypeDocument.CPF, "description");
+		Document obj = service.uploadDocument(user, document, "description");
 		return ResponseEntity.ok(obj);
 	}
 }

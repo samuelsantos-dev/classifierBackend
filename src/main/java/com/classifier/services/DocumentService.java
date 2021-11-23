@@ -1,10 +1,15 @@
 package com.classifier.services;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.classifier.domain.Document;
 import com.classifier.domain.User;
+import com.classifier.dto.RequestClassifierDTOO;
+import com.classifier.dto.ResponseClassifier;
 import com.classifier.enums.TypeDocument;
 import com.classifier.repositories.DocumentRepository;
 import com.classifier.services.exception.DataIntegrityException;
@@ -23,6 +30,9 @@ public class DocumentService {
 
 	@Autowired
 	private S3Service service;
+	
+	@Autowired
+	private APIPythonService pythonService;
 
 	@Autowired
 	private DocumentRepository rep;
@@ -36,7 +46,7 @@ public class DocumentService {
 		return service.findWithPrefix(prefix);
 	}
 
-	public Document uploadDocument(User user, MultipartFile document, TypeDocument type, String description) {
+	public Document uploadDocument(User user, MultipartFile document, String description) {
 		try {
 			if (description != null)
 				description = URLDecoder.decode(description, StandardCharsets.UTF_8.toString());
@@ -56,6 +66,27 @@ public class DocumentService {
 
 		String name = filePrefix + "-" + extension;
 		URI link = service.uploadFile(document, USER_FOLDER_NAME, name);
+		
+		String s = null;
+		try {
+			s = new String(Base64.getEncoder().encode(document.getInputStream().readAllBytes()), "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		ResponseClassifier response =  pythonService.classifierImage(new RequestClassifierDTOO("", s));
+		if (!response.isDocument()) {
+			throw new DataIntegrityException("Imagem invalida, nao e um documento");
+		}
+		
+		TypeDocument type = null;
+		if (response.getMsg().equals("1"))
+			type = TypeDocument.IDENTIDADE;
+		else if(response.getMsg().equals("2"))
+		type = TypeDocument.CPF;
+		 
 
 		Document documentUser = new Document(null, name, type.getCod(), link.toString(), extension, document.getSize(),
 				null);

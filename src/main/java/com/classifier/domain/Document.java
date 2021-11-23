@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.amazonaws.services.workdocs.model.DocumentThumbnailType;
+import com.classifier.enums.TypeDocument;
+
 @Entity
 public class Document implements Serializable {
 
@@ -43,9 +46,9 @@ public class Document implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Integer getType() {
-		return type;
+	
+	public TypeDocument getType() {
+		return TypeDocument.toEnum(type);
 	}
 
 	public void setType(Integer type) {
