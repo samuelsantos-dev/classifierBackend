@@ -38,10 +38,7 @@ public class APIPythonService {
 				if (res.getMsg().equals("Essa imagem nao e um documento"))
 					res.setDocument(false);
 				else 
-					res.setDocument(true);
-					
-					
-				
+					res.setDocument(true);	
 			} else {
 				res = new ResponseClassifier();
 				res.setMsg(response.body().getImg());
