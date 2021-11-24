@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.classifier.domain.Document;
 import com.classifier.domain.User;
-import com.classifier.enums.TypeDocument;
 import com.classifier.services.DocumentService;
 import com.classifier.services.UserService;
 
