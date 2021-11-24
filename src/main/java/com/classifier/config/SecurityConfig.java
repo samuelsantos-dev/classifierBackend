@@ -35,14 +35,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private UserDetailsService userDetailsService;
 
 	private static final String[] PUBLIC_MATCHERS = {	
+			"/documents/**",
+			"/users**",
 		};
 
 	private static final String[] PUBLIC_MATCHERS_GET = {
 		};
 
 	private static final String[] PUBLIC_MATCHERS_POST = {
-			"/documents/**",
-			"/users**",
+			
 		};
 	
 	private static final String[] PUBLIC_MATCHERS_PUT = {

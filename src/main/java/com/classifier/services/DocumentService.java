@@ -90,5 +90,10 @@ public class DocumentService {
 
 		return rep.save(documentUser);
 	}
+	
+	
+	public List<Document> getDocuments(){
+		return rep.findAll();
+	}
 
 }

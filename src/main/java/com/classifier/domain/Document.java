@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.amazonaws.services.workdocs.model.DocumentThumbnailType;
 import com.classifier.enums.TypeDocument;
 
 @Entity
@@ -97,5 +96,12 @@ public class Document implements Serializable {
 		this.size_bytes = size_bytes;
 		this.user = user;
 	}
+
+	public Document() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 
 }

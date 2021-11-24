@@ -1,5 +1,7 @@
 package com.classifier.resources;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +32,12 @@ public class DocumentResource {
 			@RequestPart("file") MultipartFile document) {
 		User user = userService.find(id);
 		Document obj = service.uploadDocument(user, document, "description");
+		return ResponseEntity.ok(obj);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<Document>> getDocuments() {
+		List<Document> obj = service.getDocuments();
 		return ResponseEntity.ok(obj);
 	}
 }
