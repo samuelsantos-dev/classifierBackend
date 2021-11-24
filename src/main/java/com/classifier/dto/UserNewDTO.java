@@ -3,7 +3,7 @@ package com.classifier.dto;
 import java.io.Serializable;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -11,16 +11,17 @@ public class UserNewDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@NotNull(message = "Prenchimento obrigatório")
+	@NotEmpty(message = "Nome obrigatório")
 	private String name;
 
 	@CPF(message = "CPF inválido")
 	private String cpf;
 
-	@Email
+	@NotEmpty(message= "Email obrigatório")
+	@Email(message = "Email inválido")
 	private String email;
 
-	@NotNull(message = "Prenchimento obrigatório")
+	@NotEmpty(message = "Senha obrigatória")
 	private String password;
 
 	public String getName() {

@@ -1,5 +1,7 @@
 package com.classifier.resources;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +34,11 @@ public class UserResource {
 		User user = service.fromDTO(dto);
 		user = service.insert(user);
 		return ResponseEntity.ok(user);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<User>> getusers() {
+		List<User> obj = service.getUsers();
+		return ResponseEntity.ok(obj);
 	}
 }

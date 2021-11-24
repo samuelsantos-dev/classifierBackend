@@ -1,5 +1,6 @@
 package com.classifier.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,10 @@ public class UserService {
 	public User fromDTO(UserNewDTO dto) {
 		User user = new User(null, dto.getName(), dto.getCpf(),1, dto.getEmail(), dto.getEmail(), dto.getPassword());
 		return user;
+	}
+	
+	public List<User> getUsers(){
+		return rep.findAll();
 	}
 
 }
