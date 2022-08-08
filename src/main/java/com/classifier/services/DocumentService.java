@@ -17,7 +17,6 @@ import com.classifier.domain.Document;
 import com.classifier.domain.User;
 import com.classifier.dto.RequestClassifierDTOO;
 import com.classifier.dto.ResponseClassifier;
-import com.classifier.enums.TypeDocument;
 import com.classifier.repositories.DocumentRepository;
 import com.classifier.services.exception.DataIntegrityException;
 import com.classifier.services.exception.FileException;
@@ -73,19 +72,11 @@ public class DocumentService {
 			e1.printStackTrace();
 		}
 		
-		ResponseClassifier response =  pythonService.classifierImage(new RequestClassifierDTOO("", s));
-		if (!response.isDocument()) {
-			throw new DataIntegrityException("Imagem invalida, nao e um documento");
-		}
-		
-		TypeDocument type = null;
-		if (response.getMsg().equals("1"))
-			type = TypeDocument.IDENTIDADE;
-		else if(response.getMsg().equals("2"))
-		type = TypeDocument.CPF;
-		 
+		ResponseClassifier response =  pythonService.classifierImage(new RequestClassifierDTOO(s));
+		if (!response.isDocument())
+			throw new DataIntegrityException("Imagem inválida, essa imagem não é um documento");
 
-		Document documentUser = new Document(null, name, type.getCod(), link.toString(), extension, document.getSize(),
+		Document documentUser = new Document(null, name, response.getType(), link.toString(), extension, document.getSize(),
 				null);
 
 		return rep.save(documentUser);

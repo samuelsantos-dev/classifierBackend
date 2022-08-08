@@ -31,7 +31,6 @@ public class User implements Serializable {
 	private Integer type;
 	private String email;
 
-//	@Column(unique = true)
 	private String username;
 
 	@JsonIgnore

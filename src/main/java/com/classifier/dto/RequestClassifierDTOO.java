@@ -2,12 +2,11 @@ package com.classifier.dto;
 
 public class RequestClassifierDTOO {
 
-//	private String img;
 	private String img;
 
-	public RequestClassifierDTOO(String img, String img2) {
+	public RequestClassifierDTOO(String img) {
 		super();
-		this.img = img2;
+		this.img = img;
 	}
 
 	public String getImg() {

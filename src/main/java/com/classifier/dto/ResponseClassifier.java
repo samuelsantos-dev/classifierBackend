@@ -3,6 +3,7 @@ package com.classifier.dto;
 public class ResponseClassifier {
 
 	private String img;
+	private double probality;
 	private boolean isDocument;
 	private String msg;
 	private Integer type;
@@ -33,6 +34,16 @@ public class ResponseClassifier {
 
 	public Integer getType() {
 		return type;
+	}
+	
+	
+
+	public double getProbality() {
+		return probality;
+	}
+
+	public void setProbality(double probality) {
+		this.probality = probality;
 	}
 
 	public void setType(Integer type) {
